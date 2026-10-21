@@ -1,0 +1,27 @@
+# 전자신문. Pages have no JSON-LD; the time is in <meta content=… property="article:published_time"> (attributes
+# in that order, 2026-10-20) and equals the feed's. Meta
+# keywords are the site's own list ("전자신문,Etnews,뉴스,...") and are not read; og:url carries ?SNS=.
+id = "etnews"
+outlet = "전자신문"
+hosts = ["www.etnews.com"]
+min_interval_secs = 3.0
+feeds = ["https://www.etnews.com/rss/Section901.xml"]
+article_path = '^/\d{14}$'
+id_pattern = '^/(\d{14})$'
+skip_url_prefixes = ["https://www.etnews.com/sitemap"]
+title_suffixes = ["미래를 보는 창 - 전자신문"]
+author_ignore = ["www.etnews.com"]
+
+[map]
+authors = ["meta:dable:author", "rss:author"]
+
+[categories]
+keys = ["meta:og:category", "rss:category"]
+
+[keywords]
+keys = ["meta:news_keywords"]
+
+[article]
+body = ["#articleBody", ".article_body", "[itemprop=articleBody]"]
+drop = ["script", "style", "figure", "figcaption", "button", "noscript", "iframe", "table", "aside", "svg",
+        ".ad", "[class*=ad_]", ".article_image", ".img_box"]

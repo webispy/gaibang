@@ -1,0 +1,35 @@
+# 이투데이. robots.txt (2026-10-20): "User-agent: * Allow: /". Feeds are served from rss.etoday.co.kr, pages
+# from www. Sitemaps: one per month (2025-01: 7,339 addresses, ~1.9 MB). Article ids carry no date.
+id = "etoday"
+outlet = "이투데이"
+hosts = ["www.etoday.co.kr", "rss.etoday.co.kr"]
+min_interval_secs = 3.0
+feeds = [
+    "https://rss.etoday.co.kr/eto/economy_news.xml",
+    "https://rss.etoday.co.kr/eto/finance_news.xml",
+    "https://rss.etoday.co.kr/eto/market_news.xml",
+    "https://rss.etoday.co.kr/eto/industry_news.xml",
+    "https://rss.etoday.co.kr/eto/global_news.xml",
+]
+article_path = '^/news/view/\d+$'
+
+id_pattern = '^/news/view/(\d+)$'
+
+# RSS pubDate is the last edit (11:00 published, 17:46 in the feed, 2026-10-20): it is updated_at here.
+[map]
+published_at = ["jsonld:datePublished", "meta:article:published_time"]
+updated_at = ["jsonld:dateModified", "meta:article:modified_time", "rss:pubDate", "rss:dc:date"]
+
+[keywords]
+keys = ["meta:news_keywords"]
+
+[sitemap]
+url = "https://www.etoday.co.kr/rss/web_sitemap?q={date}"
+date_format = "%Y%m"
+period = "month"
+first_day = "2025-01-01"
+
+[article]
+body = ["[itemprop=articleBody]", ".articleView"]
+drop = ["script", "style", "figure", "figcaption", "button", "noscript", "iframe", "table", "aside", "svg",
+        ".img_box_C", ".img_box_desc", ".relation_newslist", ".kwd_tags", ".reporter_topNews"]

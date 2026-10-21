@@ -1,0 +1,13 @@
+[package]
+name = "gaibang-core"
+description = "What gaibang's tools share: one state directory per machine (request slots, cool-downs), the clock and HTTP"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+ureq.workspace = true

@@ -1,0 +1,28 @@
+[workspace]
+resolver = "3"
+members = ["crates/core", "crates/dongnyang", "crates/tagubong"]
+
+[workspace.package]
+version = "0.9.2"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/webispy/gaibang"
+
+[workspace.dependencies]
+gaibang-core = { path = "crates/core" }
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+clap = { version = "4", features = ["derive"] }
+ego-tree = "0.11"
+encoding_rs = "0.8"
+quick-xml = "0.42"
+regex = "1"
+scraper = "0.27"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "1"
+ureq = "3"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true

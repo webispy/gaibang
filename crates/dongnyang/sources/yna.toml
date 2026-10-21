@@ -1,0 +1,20 @@
+# 연합뉴스. Feed signal (2026-10-14): "무단 전재-재배포, AI 학습 및 활용 금지"; the owner chose to collect and send
+# to the review models for this personal project (judging only, no training). Pages: JSON-LD NewsArticle,
+# og:title ends in " | 연합뉴스", breadcrumb ["연합뉴스", "최신뉴스"]. Mobile copies live under /amp/view/.
+id = "yna"
+outlet = "연합뉴스"
+hosts = ["www.yna.co.kr"]
+min_interval_secs = 3.0
+feeds = [
+    "https://www.yna.co.kr/rss/economy.xml",
+    "https://www.yna.co.kr/rss/industry.xml",
+    "https://www.yna.co.kr/rss/market.xml",
+]
+article_path = '^/(amp/)?view/[A-Z]{3}\d+$'
+id_pattern = '/view/([A-Z]{3}\d+)$'
+skip_url_prefixes = ["https://www.yna.co.kr/sitemap/", "https://www.yna.co.kr/theme/"]
+
+[article]
+body = [".story-news", "[itemprop=articleBody]"]
+drop = ["script", "style", "figure", "figcaption", "button", "noscript", "iframe", "table", "aside", "svg",
+        ".ad", "[class*=aside]", ".writer-zone01", ".txt-copyright", ".comp-box", ".related-zone"]

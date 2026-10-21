@@ -1,0 +1,25 @@
+[package]
+name = "dongnyang"
+description = "동냥: polite news crawler. Feeds, sitemaps and article pages, read once each, to JSON lines; one plug-in per outlet"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+readme = "../../README.md"
+keywords = ["news", "crawler", "robots-txt", "rss", "sitemap"]
+categories = ["command-line-utilities", "web-programming::http-client"]
+publish = false
+
+[dependencies]
+gaibang-core.workspace = true
+chrono.workspace = true
+clap.workspace = true
+ego-tree.workspace = true
+encoding_rs.workspace = true
+quick-xml.workspace = true
+regex.workspace = true
+scraper.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+toml.workspace = true
+ureq.workspace = true

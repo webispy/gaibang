@@ -1,0 +1,18 @@
+# 매일경제. robots.txt blocks named AI crawlers (GPTBot, ClaudeBot, ...) but allows generic agents (2026-10-14).
+# RSS: pubDate with "+09:00", author is the outlet, custom <no> id. Pages: JSON-LD articleSection "기업",
+# meta article:section is an English code ("business"), breadcrumb ends in the title.
+id = "mk"
+outlet = "매일경제"
+hosts = ["www.mk.co.kr"]
+min_interval_secs = 3.0
+feeds = ["https://www.mk.co.kr/rss/50200011/", "https://www.mk.co.kr/rss/50100032/"]
+article_path = '^/news/[a-z_-]+/\d+$'
+id_pattern = '^/news/[a-z_-]+/(\d+)$'
+
+[categories]
+keys = ["jsonld:articleSection", "jsonld:breadcrumb", "rss:category"]
+
+[article]
+body = [".news_cnt_detail_wrap", "[itemprop=articleBody]"]
+drop = ["script", "style", "figure", "figcaption", "button", "noscript", "iframe", "table", "aside", "svg",
+        ".ad", "[class*=ad_]", ".thumb_area", ".mid_title"]

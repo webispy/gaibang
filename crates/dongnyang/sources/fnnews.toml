@@ -1,0 +1,32 @@
+# 파이낸셜뉴스. robots.txt (2026-10-20): no AI-specific groups, no Crawl-delay. Sitemaps: one index per year
+# (2025: 36 parts, three a month, ~4.7 MB each, addresses repeat across parts). The RSS description is the
+# lead only (~400 characters), so the body comes from the page.
+id = "fnnews"
+outlet = "파이낸셜뉴스"
+hosts = ["www.fnnews.com"]
+min_interval_secs = 3.0
+feeds = [
+    "https://www.fnnews.com/rss/r20/fn_realnews_economy.xml",
+    "https://www.fnnews.com/rss/r20/fn_realnews_finance.xml",
+    "https://www.fnnews.com/rss/r20/fn_realnews_stock.xml",
+    "https://www.fnnews.com/rss/r20/fn_realnews_industry.xml",
+    "https://www.fnnews.com/rss/r20/fn_realnews_it.xml",
+]
+article_path = '^/news/\d{18}$'
+
+id_pattern = '^/news/(\d{18})$'
+
+[categories]
+keys = ["jsonld:articleSection", "rss:category", "meta:article:section"]
+
+[sitemap]
+url = "https://www.fnnews.com/resource/view_xml/sitemap_index/news-sitemap-index-{date}.xml"
+date_format = "%Y"
+period = "year"
+first_day = "2025-01-01"
+
+[article]
+body = [".article-view__body", "[itemprop=articleBody]"]
+drop = ["script", "style", "figure", "figcaption", "button", "noscript", "iframe", "table", "aside", "svg",
+        ".__cf_email__", ".article-ad-box"]
+id_date_prefix = true

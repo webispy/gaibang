@@ -1,0 +1,59 @@
+name: Release
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: write
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-unknown-linux-musl, aarch64-unknown-linux-musl
+      - uses: mlugg/setup-zig@v2
+      - run: cargo install cargo-zigbuild --locked
+      - run: cargo test
+      - name: Build static binaries
+        run: |
+          mkdir dist
+          for target in x86_64-unknown-linux-musl aarch64-unknown-linux-musl; do
+            cargo zigbuild --release --target "$target" -p dongnyang -p tagubong
+            for tool in dongnyang tagubong; do
+              cp "target/$target/release/$tool" "dist/$tool-${GITHUB_REF_NAME}-$target"
+            done
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: dist/*
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo test
+      - name: Build binaries (Apple silicon)
+        run: |
+          mkdir dist
+          cargo build --release -p dongnyang -p tagubong
+          for tool in dongnyang tagubong; do
+            cp "target/release/$tool" "dist/$tool-${GITHUB_REF_NAME}-aarch64-apple-darwin"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos
+          path: dist/*
+  release:
+    needs: [linux, macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - run: cd dist && sha256sum dongnyang-* tagubong-* > SHA256SUMS && cat SHA256SUMS
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/* --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes

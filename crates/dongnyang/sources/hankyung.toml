@@ -1,0 +1,26 @@
+# 한국경제. robots.txt (2026-10-17): no AI-specific groups, no Crawl-delay. Pages before 2025-01 answer 403.
+# hankyung.com put a Cloudflare challenge on a reader's IP on 2026-10-20 after two days at ~1.5 requests a second
+# (two jobs reading the same pages): one read per page is why this tool exists. No page sample since; the
+# selectors (article-body / itemprop) come from an earlier collector.
+id = "hankyung"
+outlet = "한국경제"
+hosts = ["www.hankyung.com"]
+min_interval_secs = 3.0
+feeds = [
+    "https://www.hankyung.com/feed/finance",
+    "https://www.hankyung.com/feed/economy",
+    "https://www.hankyung.com/feed/it",
+]
+article_path = '^/article/\d+[a-zA-Z]?$'
+id_pattern = '^/article/(\d+[a-zA-Z]?)$'
+skip_url_prefixes = ["https://www.hankyung.com/koreamarket/"]
+
+[sitemap]
+url = "https://www.hankyung.com/sitemap/daily-article/{date}.xml"
+date_format = "%Y%m%d"
+first_day = "2025-01-01"
+
+[article]
+body = ["[itemprop=articleBody]", ".article-body"]
+drop = ["script", "style", "figure", "figcaption", "button", "noscript", "iframe", "table", "aside", "svg", ".ad"]
+id_date_prefix = true
