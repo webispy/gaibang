@@ -11,6 +11,8 @@ The name comes from **개방 (丐幇, Gaibang)**, the beggars' sect of wuxia fic
 every corner of the land. Like them, these tools *ask* rather than take: they follow robots.txt, keep a slow pace per
 site, and back off when refused.
 
+![A wandering beggar of the sect holds out a wooden bowl as newspaper pages drift into it (dongnyang, polite crawling) and taps floating stone tablets with a jade-green bamboo staff and a golden key (tagubong, official APIs with your own key).](docs/images/gaibang.jpg)
+
 | Tool | What it does | Docs (Korean) |
 |---|---|---|
 | **dongnyang** (동냥, "begging") | Reads news outlets' RSS feeds, sitemaps and article pages — once each, slowly — and maps every outlet's fields to one common schema. Also runs as an MCP server for agents. | [docs/dongnyang.md](docs/dongnyang.md), [output](docs/dongnyang-output.md) |
@@ -35,9 +37,32 @@ the same queue per site or API and honours the same cool-downs.
 
 ### Supported sources
 
-| dongnyang (outlets) | tagubong (APIs) |
+**dongnyang** — news outlets
+
+| Outlet | `--source` |
 |---|---|
-| 연합뉴스 `yna`, 한국경제 `hankyung`, 매일경제 `mk`, 전자신문 `etnews`, 조선비즈 `chosunbiz`, 파이낸셜뉴스 `fnnews`, 이투데이 `etoday` | FRED, 한국투자증권 (KIS), 토스증권, 한국은행 ECOS, 공공데이터포털, 열린국회정보, 법제처, KRX |
+| [연합뉴스 (Yonhap)](https://www.yna.co.kr/) | `yna` |
+| [한국경제 (Korea Economic Daily)](https://www.hankyung.com/) | `hankyung` |
+| [매일경제 (Maeil Business)](https://www.mk.co.kr/) | `mk` |
+| [전자신문 (Electronic Times)](https://www.etnews.com/) | `etnews` |
+| [조선비즈 (Chosun Biz)](https://biz.chosun.com/) | `chosunbiz` |
+| [파이낸셜뉴스 (Financial News)](https://www.fnnews.com/) | `fnnews` |
+| [이투데이 (eToday)](https://www.etoday.co.kr/) | `etoday` |
+
+**tagubong** — official APIs (links go to each provider's developer portal, where keys are issued)
+
+| API | `--api` / command | Key |
+|---|---|---|
+| [FRED, Federal Reserve Bank of St. Louis](https://fred.stlouisfed.org/docs/api/fred/) | `fred` | `FRED_API_KEY` |
+| [한국투자증권 Open API (KIS)](https://apiportal.koreainvestment.com/) | `kis` | `KIS_APP_KEY`, `KIS_APP_SECRET` |
+| [토스증권 Open API (Toss Securities)](https://developers.tossinvest.com/) | `toss` | `TOSS_CLIENT_ID`, `TOSS_CLIENT_SECRET` |
+| [한국은행 ECOS (Bank of Korea)](https://ecos.bok.or.kr/api/) | `ecos` | `ECOS_API_KEY` |
+| [공공데이터포털 (data.go.kr)](https://www.data.go.kr/) | `datagokr` | `DATA_GO_KR_KEY` |
+| [열린국회정보 (National Assembly)](https://open.assembly.go.kr/) | `assembly` | `ASSEMBLY_API_KEY` |
+| [법제처 국가법령정보 (Ministry of Government Legislation)](https://open.law.go.kr/) | `law` | `LAW_OC` |
+| [KRX Open API (Korea Exchange)](https://openapi.krx.co.kr/) | `krx` | `KRX_API_KEY` |
+
+Each provider's own terms apply to what you read; see [docs/tagubong.md](docs/tagubong.md) for paces and commands.
 
 ## Install
 
